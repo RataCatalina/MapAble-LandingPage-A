@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0WD0Z4Q2KF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0WD0Z4Q2KF');
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MapAble - Navighează orașele inteligent</title>
@@ -17,8 +27,11 @@
   <input type="email" id="joinMovementEmail" placeholder="Introdu emailul tău" class="px-4 py-2 border border-gray-300 rounded-md w-full" required>
   <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700">Alătură-te mișcării</button>
 </form>
+
 <script>
-  const submitToWaitingList = async (email, source) => {
+import { addToWaitingList } from './supabaseClient.js'
+
+  const submitToWaitingList = async (email) => {
     const response = await fetch('https://wgampnpylslclzwjtbkq.supabase.co/rest/v1/waiting_list', {
       method: 'POST',
       headers: {
@@ -27,8 +40,9 @@
         'Content-Type': 'application/json',
         'Prefer': 'return=minimal'
       },
-      body: JSON.stringify({ email, source })
+      body: JSON.stringify({ email })
     });
+    
 
     return response.ok;
   };
